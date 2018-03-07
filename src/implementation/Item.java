@@ -6,11 +6,15 @@ public class Item {
 	int weight;
 	double ratio;
 	
-	public Item(int key, int value, int weight, double ratio) {
+	public Item(int key, int value, int weight) {
 		this.key = key;
 		this.value = value;
 		this.weight = weight;
-		this.ratio = ratio;
+		this.ratio = (double)this.value/this.weight;
+	}
+	
+	public String toString() {
+		return key+". item: value: "+value+" weight: "+weight+" ratio: "+ratio;
 	}
 
 	public int getKey() {
