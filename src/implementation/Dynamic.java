@@ -14,8 +14,8 @@ public class Dynamic implements Algorithm {
 	
 	public Dynamic() throws NumberFormatException, IOException {
 		load(this.container);
-		solveProblem(this.container,this.tab);
-		writeSolution(this.tab,this.container,this.knapsack);
+		//solveProblem(this.container,this.tab);
+		//writeSolution(this.tab,this.container,this.knapsack);
 	}
 
 	@Override
@@ -59,6 +59,7 @@ public class Dynamic implements Algorithm {
 		for(int i=0;i<Main.n;i++) {
 			container[i] = new Item(i+1,in.nextInt(),in.nextInt());
 		}
+		
 		
 	}
 
