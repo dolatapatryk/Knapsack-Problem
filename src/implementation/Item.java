@@ -1,10 +1,10 @@
 package implementation;
 
 public class Item {
-	int key;
-	int value;
-	int weight;
-	double ratio;
+	private int key;
+	private int value;
+	private int weight;
+	private double ratio;
 	
 	public Item(int key, int value, int weight) {
 		this.key = key;

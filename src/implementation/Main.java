@@ -9,6 +9,7 @@ public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		Dynamic dynamic = new Dynamic();
+		Greedy greedy = new Greedy();
 	}
 
 }

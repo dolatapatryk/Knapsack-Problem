@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Dynamic implements Algorithm {
+public class Dynamic{
 	private Item[] container;
 	private Item[] knapsack;
 	private int[][] tab; 
@@ -18,7 +18,6 @@ public class Dynamic implements Algorithm {
 		writeSolution(this.tab,this.container,this.knapsack);
 	}
 
-	@Override
 	public int[][] solveProblem(Item[] container, int[][] tab) {
 		
 		tab = new int[Main.n+1][Main.b+1];
@@ -32,11 +31,11 @@ public class Dynamic implements Algorithm {
 
 		for (i = 1; i <= Main.n; i++) {
 			for (int j = 0; j <= Main.b; j++) {
-				if (container[i - 1].weight > j) {
+				if (container[i - 1].getWeight() > j) {
 					tab[i][j] = tab[i - 1][j];
 				}
-				if (container[i - 1].weight <= j) {
-					tab[i][j] = max(tab[i - 1][j], tab[i - 1][j - container[i - 1].weight] + container[i - 1].value);
+				if (container[i - 1].getWeight() <= j) {
+					tab[i][j] = max(tab[i - 1][j], tab[i - 1][j - container[i - 1].getWeight()] + container[i - 1].getValue());
 				}
 			}
 		}
@@ -49,10 +48,10 @@ public class Dynamic implements Algorithm {
 		return max;
 	}
 
-	@Override
 	public Item[] load(Item[] container) throws NumberFormatException, IOException {
 		String file = "data.txt";
 		BufferedInputStream data = new BufferedInputStream(new FileInputStream(file));
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(data);
 		Main.n = in.nextInt();
 		Main.b = in.nextInt();
@@ -64,7 +63,6 @@ public class Dynamic implements Algorithm {
 		
 	}
 
-	@Override
 	public void writeSolution(int[][] tab, Item[] container, Item[] knapsack ) {
 		int y = Main.n;
 		int z = Main.b;
@@ -75,7 +73,7 @@ public class Dynamic implements Algorithm {
 		if (tab[y][z] != tab[y - 1][z]) {
 			knapsack[m++] = container[y - 1];
 			y--;
-			z = z - container[y].weight;
+			z = z - container[y].getWeight();
 		}
 		else {
 			y--;
@@ -84,8 +82,8 @@ public class Dynamic implements Algorithm {
 		System.out.println("***DYNAMIC SOLUTION***");
 		for(int i=0;i<m;i++) {
 			System.out.println(knapsack[i]);
-			value+=knapsack[i].value;
-			weight+=knapsack[i].weight;
+			value+=knapsack[i].getValue();
+			weight+=knapsack[i].getWeight();
 		}
 		System.out.println("Value: "+value);
 		System.out.println("Weight: "+weight+"\n");
