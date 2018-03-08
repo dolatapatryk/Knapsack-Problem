@@ -13,13 +13,14 @@ public class Dynamic implements Algorithm {
 	private int[][] tab; 
 	
 	public Dynamic() throws NumberFormatException, IOException {
-		load(this.container);
-		//solveProblem(this.container,this.tab);
-		//writeSolution(this.tab,this.container,this.knapsack);
+		this.container = load(this.container);
+		this.tab = solveProblem(this.container,this.tab);
+		writeSolution(this.tab,this.container,this.knapsack);
 	}
 
 	@Override
-	public void solveProblem(Item[] container, int[][] tab) {
+	public int[][] solveProblem(Item[] container, int[][] tab) {
+		
 		tab = new int[Main.n+1][Main.b+1];
 		int i;
 		for (i = 0; i <= Main.n; i++) {
@@ -39,7 +40,7 @@ public class Dynamic implements Algorithm {
 				}
 			}
 		}
-		
+		return tab;
 	}
 
 	private int max(int i, int j) {
@@ -49,7 +50,7 @@ public class Dynamic implements Algorithm {
 	}
 
 	@Override
-	public void load(Item[] container) throws NumberFormatException, IOException {
+	public Item[] load(Item[] container) throws NumberFormatException, IOException {
 		String file = "data.txt";
 		BufferedInputStream data = new BufferedInputStream(new FileInputStream(file));
 		Scanner in = new Scanner(data);
@@ -59,7 +60,7 @@ public class Dynamic implements Algorithm {
 		for(int i=0;i<Main.n;i++) {
 			container[i] = new Item(i+1,in.nextInt(),in.nextInt());
 		}
-		
+		return container;
 		
 	}
 
@@ -68,6 +69,8 @@ public class Dynamic implements Algorithm {
 		int y = Main.n;
 		int z = Main.b;
 		int m =0;
+		int value = 0, weight = 0;
+		knapsack = new Item[Main.n];
 		while (y > 0 && z > 0) {
 		if (tab[y][z] != tab[y - 1][z]) {
 			knapsack[m++] = container[y - 1];
@@ -78,9 +81,14 @@ public class Dynamic implements Algorithm {
 			y--;
 		}
 	}
+		System.out.println("***DYNAMIC SOLUTION***");
 		for(int i=0;i<m;i++) {
 			System.out.println(knapsack[i]);
+			value+=knapsack[i].value;
+			weight+=knapsack[i].weight;
 		}
+		System.out.println("Value: "+value);
+		System.out.println("Weight: "+weight+"\n");
 		
 	}
 
